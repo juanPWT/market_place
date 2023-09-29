@@ -8,23 +8,16 @@ dotEnv.config();
 const app = express();
 app.use(express.json());
 
-//db init
-mongoose.connect(process.env.URL_DB);
-
-const db = mongoose.connection;
-
-db.on("error", (error) => {
-  console.log("failed to connect", error);
-});
-
-db.once("connected", () => {
-  console.log("Database Connected");
-});
-
 //api execute
 app.use("/users", usersRoute);
 
-//server
-app.listen(3001, () => {
-  console.log("server running!!");
-});
+//db init
+mongoose
+  .connect(process.env.URL_DB)
+  .then(() => {
+    //server
+    app.listen(3001, () => {
+      console.log("connected to db &  server running!!");
+    });
+  })
+  .catch((err) => console.log(err));

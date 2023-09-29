@@ -13,7 +13,7 @@ export const getAllUsers = async (req, res) => {
   res.status(200).json({ data: users, msg: "success get data users" });
 };
 
-export const register = async () => {
+export const register = async (req, res) => {
   const { username, password, email, address, favorit, phoneNumber } = req.body;
   try {
     const users = await userModel.create({
