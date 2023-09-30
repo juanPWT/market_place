@@ -18,7 +18,10 @@ const userSchema = new mongoose.Schema({
   },
   address: addresSchema,
   favorit: [String],
-  phoneNumber: Number,
+  phoneNumber: {
+    type: Number,
+    maxLength: 13,
+  },
   createdAt: {
     type: Date,
     immutable: true,

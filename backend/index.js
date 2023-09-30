@@ -4,7 +4,7 @@ import dotEnv from "dotenv";
 import usersRoute from "./route/usersRoute.js";
 
 // app init
-dotEnv.config();
+dotEnv.config({ path: "./vars/.env" });
 const app = express();
 app.use(express.json());
 
