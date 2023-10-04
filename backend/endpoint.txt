@@ -1,0 +1,17 @@
+user :
+get
+http://localhost:3001/user
+post
+http://localhost:3001/user
+
+store :
+post
+http://localhost:3001/store
+
+product :
+get
+http://localhost:3001/product
+post
+http://localhost:3001/product/:store      (:store mean id stores collection/table in database)
+
+

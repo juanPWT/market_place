@@ -1,27 +1,28 @@
 import mongoose from "mongoose";
 
-const addresSchema = mongoose.Schema({
+const addressSchema = mongoose.Schema({
   state: String,
   city: String,
+  block: String,
 });
 
-const userSchema = new mongoose.Schema({
-  username: String,
-  email: {
+const storeSchema = new mongoose.Schema({
+  storename: {
     type: String,
     required: true,
-    lowercase: true,
   },
   password: {
     type: String,
     required: true,
   },
-  address: addresSchema,
-  favorit: [String],
-  phoneNumber: {
-    type: Number,
-    maxLength: 13,
+  address: addressSchema,
+  category: [],
+  email: {
+    type: String,
+    Lowercase: true,
+    required: true,
   },
+  refreshToken: String,
   createdAt: {
     type: Date,
     immutable: true,
@@ -34,6 +35,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const userModel = mongoose.model("users", userSchema);
+const storeModel = mongoose.model("stores", storeSchema);
 
-export default userModel;
+export default storeModel;

@@ -1,6 +1,7 @@
 import userModel from "../models/userModel.js";
 import { generateToken } from "../utils/randomToken.js";
 import bcrypt from "bcrypt";
+const saltRound = process.env.SALT_ROUND;
 
 export const getAllUsers = async (req, res) => {
   const users = await userModel
@@ -20,7 +21,7 @@ export const register = async (req, res) => {
   if (!username && !email && !password && !address) {
     return res.status(404).json({ msg: "please fill the attribut register" });
   }
-  const salt = await bcrypt.genSalt();
+  const salt = await bcrypt.genSalt(saltRound);
   const hashPassword = await bcrypt.hash(password, salt);
   try {
     const users = await userModel.create({
