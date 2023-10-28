@@ -1,34 +1,20 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Landing from "./feature/landing/Page";
+import PageNotFound from "./utils/404Page";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
-  const [dataUsers, setDataUsers] = useState([]);
-
-  useEffect(() => {
-    const dataUser = async () => {
-      const data = await axios.get("http://localhost:3001/users");
-      setDataUsers(data.data.data);
-    };
-
-    dataUser();
-  }, []);
-
   return (
     <>
-      <div>
-        <ul>
-          {dataUsers.map((data) => {
-            return (
-              <div key={data._id}>
-                <li>username: {data.username}</li>
-                <li>email: {data.email}</li>
-                <ul>
-                  <li>favorit: {data.favorit[1]}</li>
-                </ul>
-              </div>
-            );
-          })}
-        </ul>
+      <div className="min-h-screen flex flex-col justify-between">
+        <Navbar />
+        <Routes>
+          <Route path="/" Component={Landing} />
+          <Route path="*" Component={PageNotFound} />
+        </Routes>
+        <Footer />
       </div>
     </>
   );

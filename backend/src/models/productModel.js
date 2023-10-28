@@ -12,7 +12,7 @@ const productSchema = new mongoose.Schema({
   },
 
   store: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "stores",
   },
 
@@ -24,7 +24,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     Text: true,
   },
-  imageUrl: String,
+  imageCover: String,
   createdAt: {
     type: Date,
     immutable: true,
