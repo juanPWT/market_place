@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import * as fetchData from "../../api/index";
+import * as fetchData from "../../../api/index";
+import { formatCurrency } from "../../../hook/formatCurrency";
 
-const ProductPopular = () => {
+const ProductFlashSale = () => {
   const [slideView, setSlideView] = useState(1);
   const [product, setProduct] = useState([]);
 
@@ -20,7 +21,7 @@ const ProductPopular = () => {
     };
 
     const getProduk = async () => {
-      const get = await fetchData.getAllProduct();
+      const get = await fetchData.getAllProductFlashSale();
       setProduct(get);
     };
 
@@ -37,22 +38,35 @@ const ProductPopular = () => {
     <>
       <Swiper spaceBetween={10} slidesPerView={slideView}>
         {product.map((data) => {
+          const priceAfterDiscount =
+            ((100 - data.amount) / 100) * data.product.price;
+
           return (
             <SwiperSlide key={data._id}>
               <div className="flex justify-center items-center">
                 <div className="bg-white rounded-lg overflow-hidden w-[400px] ">
                   <img
-                    src={data.imageCover}
+                    src={data.product.imageCover}
                     alt="product"
                     className="w-full h-[250px] object-cover mb-3"
                   />
                   <div className="flex flex-col  gap-4  p-4 items-start justify-start">
                     <h1 className="text-lg font-semibold text-gray-800">
-                      {data.name}
+                      {data.product.name}
                     </h1>
-                    <p className="text-gray-950 font-bold text-2xl">
-                      Rp. {data.price}
-                    </p>
+                    <div className="flex xl:gap-4 gap-10">
+                      <p className="text-gray-950 font-bold text-2xl ">
+                        {formatCurrency(priceAfterDiscount)}
+                      </p>
+                      <span className="text-orange-500 ">
+                        discount {data.amount}%
+                      </span>
+                    </div>
+
+                    <span className="line-through">
+                      {formatCurrency(data.product.price)}
+                    </span>
+
                     <div className="flex gap-5">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -86,4 +100,4 @@ const ProductPopular = () => {
   );
 };
 
-export default ProductPopular;
+export default ProductFlashSale;

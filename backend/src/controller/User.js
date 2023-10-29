@@ -13,7 +13,7 @@ export const getAllUsers = async (req, res) => {
     .select("phoneNumber")
     .select("createdAt")
     .select("updatedAt");
-  res.status(200).json({ data: users, msg: "success get data users" });
+  return res.status(200).json({ data: users, msg: "success get data users" });
 };
 
 export const register = async (req, res) => {
@@ -32,10 +32,12 @@ export const register = async (req, res) => {
       favorit: favorit,
       phoneNumber: phoneNumber,
     });
-    res.status(200).json({ data: users, msg: "success post data users" });
+    return res
+      .status(200)
+      .json({ data: users, msg: "success post data users" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: "failed to post data users" });
+    return res.status(500).json({ msg: "failed to post data users" });
   }
 
   //note
@@ -56,8 +58,8 @@ export const login = async (req, res) => {
     //token init
     const token = generateToken(45);
 
-    res.status(200).json({ token: token, msg: "success login" });
+    return res.status(200).json({ token: token, msg: "success login" });
   } catch (err) {
-    res.status(500).json({ msg: "server failed" });
+    return res.status(500).json({ msg: "server failed" });
   }
 };

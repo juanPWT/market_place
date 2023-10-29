@@ -20,9 +20,11 @@ export const register = async (req, res) => {
       email: email,
     });
 
-    res.status(200).json({ data: store, messege: "succes register store" });
+    return res
+      .status(200)
+      .json({ data: store, messege: "succes register store" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ messege: "server failed on register" });
+    return res.status(500).json({ messege: "server failed on register" });
   }
 };

@@ -8,3 +8,12 @@ export const getAllProduct = async () => {
     console.log(err);
   }
 };
+
+export const getAllProductFlashSale = async () => {
+  try {
+    const produkFlashsale = await axios.get("http://localhost:3001/flashSale");
+    return produkFlashsale.data.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

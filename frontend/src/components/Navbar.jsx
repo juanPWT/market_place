@@ -12,7 +12,7 @@ const Navbar = () => {
             "https://www.wfp.org/support-us/stories/palestine-appeal?utm_source=google&utm_medium=cpc&utm_campaign=20641571722&utm_content=153122019966&gad_source=1&gclid=Cj0KCQjw4vKpBhCZARIsAOKHoWSlSUst4jjUQdrfTzk0KJrDg2lRwGZq7WRxxJcvaFJCspY9lR2xZ4gaAuEhEALw_wcB&gclsrc=aw.ds"
           }
           target="_blank"
-          className="text-black font-bold bg-gradient-to-r from-red-600 via-green-700 to-white rounded-xl p-1"
+          className="text-black font-bold bg-gradient-to-r from-red-600 via-green-700 to-white rounded-xl p-1 text-sm xl:text-lg"
         >
           click to support
         </Link>

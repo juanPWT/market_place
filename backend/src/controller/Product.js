@@ -32,13 +32,13 @@ export const createProduct = async (req, res) => {
           imageCover: imageCover,
         });
 
-        res
+        return res
           .status(200)
           .json({ data: product, messege: "success create product" });
       }
     } catch (err) {
       console.log(err);
-      res.status(500).json({ messege: "cannot create product" });
+      return res.status(500).json({ messege: "cannot create product" });
     }
   });
 };
@@ -65,19 +65,50 @@ export const getAllProduct = async (req, res) => {
       })
     );
 
-    res
+    return res
       .status(200)
       .json({ data: result2, messege: "success get all data product" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ messege: "failed find all data product" });
+    return res.status(500).json({ messege: "failed find all data product" });
+  }
+};
+
+export const getProductDetail = async (req, res) => {
+  const { productId } = req.params;
+  if (!productId) {
+    return res
+      .status(401)
+      .json({ messege: "product id required", status: "failed" });
+  }
+  try {
+    const getProductId = await productModel.findById(productId);
+    const getStoreId = await storeModel.findById(getProductId.store);
+    if (!getProductId && !getStoreId) {
+      return res.status(404).json({
+        status: "not found",
+        messege: "data product nd store not found",
+      });
+    }
+    return res.status(200).json({
+      messege: "success get data product by id",
+      data: { product: getProductId, store: getStoreId },
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      messege: "server error get product by id",
+      status: "failde server",
+    });
   }
 };
 
 export const getProductByStore = async (req, res) => {
   const { storeId } = req.params;
   if (!storeId) {
-    res.status(401).json({ messege: "store id required", status: "failed" });
+    return res
+      .status(401)
+      .json({ messege: "store id required", status: "failed" });
   }
   try {
     const [productByStore, store] = await Promise.all([
@@ -92,12 +123,14 @@ export const getProductByStore = async (req, res) => {
       return data;
     });
 
-    res.status(200).json({
+    return res.status(200).json({
       messege: "success get product by store",
       data: { productAll, store },
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ messege: "server error", status: "failde server" });
+    return res
+      .status(500)
+      .json({ messege: "server error", status: "failde server" });
   }
 };

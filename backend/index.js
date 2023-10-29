@@ -9,6 +9,7 @@ import { fileURLToPath } from "url";
 import userRoute from "./src/route/userRoute.js";
 import storeRoute from "./src/route/storeRoute.js";
 import productRoute from "./src/route/productRoute.js";
+import flashSaleRoute from "./src/route/flashSaleRoute.js";
 
 // app init
 dotEnv.config({ path: "./vars/.env" });
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/user", userRoute);
 app.use("/store", storeRoute);
 app.use("/product", productRoute);
+app.use("/flashSale", flashSaleRoute);
 
 //db init
 mongoose

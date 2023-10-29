@@ -1,6 +1,7 @@
 import React from "react";
 import Hero from "./components/Hero";
-import ProductPopular from "../product/ProductPopular";
+import ProductLanding from "../product/components/ProductLanding";
+import ProductFlashSale from "../product/components/ProductFlashSale";
 
 const Landing = () => {
   return (
@@ -9,10 +10,14 @@ const Landing = () => {
         <Hero />
       </div>
       <div className="my-10 z-0">
-        <h1 className="my-5 font-bold bg-gradient-to-br from-orange-500 via-fuchsia-500 to-blue-500 text-transparent bg-clip-text text-4xl mx-5">
-          Popular Products
+        <h1 className="my-10 font-bold bg-gradient-to-br from-orange-500 via-fuchsia-500 to-blue-500 text-transparent bg-clip-text text-4xl mx-5">
+          Flash Sale Products
         </h1>
-        <ProductPopular />
+        <ProductFlashSale />
+        <h1 className="mt-10 mb-5 font-bold bg-gradient-to-br from-orange-500 via-fuchsia-500 to-blue-500 text-transparent bg-clip-text text-4xl mx-5">
+          Products
+        </h1>
+        <ProductLanding />
       </div>
     </div>
   );
