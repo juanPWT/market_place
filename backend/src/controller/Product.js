@@ -83,13 +83,22 @@ export const getProductDetail = async (req, res) => {
   }
   try {
     const getProductId = await productModel.findById(productId);
-    const getStoreId = await storeModel.findById(getProductId.store);
+    const getStoreId = await storeModel
+      .findById(getProductId.store)
+      .select("_id")
+      .select("storename")
+      .select("address")
+      .select("category")
+      .select("email");
     if (!getProductId && !getStoreId) {
       return res.status(404).json({
         status: "not found",
         messege: "data product nd store not found",
       });
     }
+
+    getProductId.imageCover = `http://localhost:3001/products/cover/${getProductId.imageCover}`;
+
     return res.status(200).json({
       messege: "success get data product by id",
       data: { product: getProductId, store: getStoreId },

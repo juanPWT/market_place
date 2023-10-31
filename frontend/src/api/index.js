@@ -17,3 +17,14 @@ export const getAllProductFlashSale = async () => {
     console.log(err);
   }
 };
+
+export const getDetailProduct = async (id) => {
+  try {
+    const detailProduck = await axios.get(
+      `http://localhost:3001/product/detail/${id}`
+    );
+    return detailProduck.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
