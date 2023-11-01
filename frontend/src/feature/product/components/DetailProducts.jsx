@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import * as dataFetch from "../../../api/index";
 import { formatCurrency } from "../../../hook/formatCurrency";
+import { useCart } from "../../../hook/CartContext";
 
 export const DetailProducts = () => {
   const [detailProduct, setDetailProduct] = useState({
@@ -97,6 +98,12 @@ export const DetailProducts = () => {
 
     getDetailProductHandler();
   }, [id, amount]);
+
+  //for cart state local
+  const { addToCart } = useCart();
+  const handleAddToCart = () => {
+    addToCart(detailProduct, amount);
+  };
 
   return (
     <div className="min-h-screen flex flex-col xl:flex-row justify-between p-2 mt-10 xl:mt-20 gap-4  items-center ">
@@ -274,8 +281,11 @@ export const DetailProducts = () => {
             </h1>
           </div>
 
-          <button className="w-full bg-fuchsia-500 p-2 rounded-lg text-white font-bold text-xl">
-            Cart
+          <button
+            onClick={handleAddToCart}
+            className="w-full bg-fuchsia-500 p-2 rounded-lg text-white font-bold text-xl"
+          >
+            Add Cart
           </button>
           <button className="w-full border-2 border-fuchsia-500 p-2 rounded-lg text-fuchsia-500 font-bold text-xl">
             Buy now

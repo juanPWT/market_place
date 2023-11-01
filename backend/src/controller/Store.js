@@ -1,5 +1,4 @@
 import storeModel from "../models/storeModel.js";
-import { generateToken } from "../utils/randomToken.js";
 import bcrypt from "bcrypt";
 const saltRound = process.env.SALT_ROUND;
 
