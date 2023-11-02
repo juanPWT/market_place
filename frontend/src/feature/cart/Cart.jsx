@@ -1,28 +1,29 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { formatCurrency } from "../../hook/formatCurrency";
+import { useCart } from "../../hook/CartContext";
 
 const Cart = ({ cartItems }) => {
-  //for cart
+  const { incrementItems, decrementItems } = useCart();
   return (
     <ul className="menu p-4  xl:w-[600px] min-h-full bg-gradient-to-t from-fuchsia-500 to-white/20 text-base-content">
       {/* Sidebar content here */}
       {Array.isArray(cartItems) && cartItems.length >= 1 ? (
-        cartItems.map((data) => {
-          const totalPrice = data.qty * data.product.price;
-
+        cartItems.map((data, i) => {
           return (
-            <li className="mt-5" key={data.product._id}>
+            <li className="mt-5" key={data.item.product._id}>
               <div className="w-full h-auto flex justify-start items-start gap-5">
                 <img
-                  src={data.product.imageCover}
+                  src={data.item.product.imageCover}
                   alt="product"
                   className="w-[250px] h-[200px] object-cover rounded-xl"
                 />
                 <div className="flex flex-col gap-2">
-                  <h1 className="text-white text-xl">{data.product.name}</h1>
+                  <h1 className="text-white text-xl">
+                    {data.item.product.name}
+                  </h1>
                   <div className="w-32 xl:w-40 h-12 my-auto  border-2 border-white rounded-lg gap-6 flex justify-center items-center">
-                    <button>
+                    <button onClick={() => decrementItems(i)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -39,7 +40,7 @@ const Cart = ({ cartItems }) => {
                       </svg>
                     </button>
                     <span className="font-bold text-white">{data.qty}</span>
-                    <button>
+                    <button onClick={() => incrementItems(i)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -57,10 +58,10 @@ const Cart = ({ cartItems }) => {
                     </button>
                   </div>
                   <h1 className="text-white font-bold text-lg">
-                    {formatCurrency(totalPrice)}
+                    {formatCurrency(data.total)}
                   </h1>
                   <p className="text-white text-sm font-semibold">
-                    From : {data.store.storename}
+                    From : {data.item.store.storename}
                   </p>
                 </div>
               </div>
@@ -87,6 +88,15 @@ const Cart = ({ cartItems }) => {
             <span>Cart masih kosong</span>
           </div>
         </li>
+      )}
+      {cartItems.length >= 1 ? (
+        <li className="mt-10">
+          <button className="bg-white text-fuchsia-500 w-full rounded-xl text-xl font-bold flex justify-center items-center">
+            Check out
+          </button>
+        </li>
+      ) : (
+        ""
       )}
     </ul>
   );
