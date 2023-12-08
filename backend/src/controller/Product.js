@@ -1,6 +1,7 @@
 import productModel from "../models/productModel.js";
 import storeModel from "../models/storeModel.js";
 import uploadProductCover from "../middleware/uploadProductCover.js";
+import { suffleArray } from "../utils/suffleArray.js";
 
 //development
 export const createProduct = async (req, res) => {
@@ -46,8 +47,10 @@ export const createProduct = async (req, res) => {
 export const getAllProduct = async (req, res) => {
   try {
     const product = await productModel.find();
+
+    const suffleProducts = suffleArray(product);
     const result2 = await Promise.all(
-      product.map(async (data) => {
+      suffleProducts.map(async (data) => {
         if (data.imageCover) {
           data.imageCover = `http://localhost:3001/products/cover/${data.imageCover}`;
         }

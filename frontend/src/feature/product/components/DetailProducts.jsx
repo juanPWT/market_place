@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import * as dataFetch from "../../../api/index";
 import { formatCurrency } from "../../../hook/formatCurrency";
 import { useCart } from "../../../hook/CartContext";
+import { Toaster } from "react-hot-toast";
 
 export const DetailProducts = () => {
   const [detailProduct, setDetailProduct] = useState({
@@ -107,6 +108,7 @@ export const DetailProducts = () => {
 
   return (
     <div className="min-h-screen flex flex-col xl:flex-row justify-between p-2 mt-10 xl:mt-20 gap-4  items-center ">
+      <Toaster position="center" />
       {/* komponen satu  */}
       <div className="flex flex-col xl:w-[800px]">
         <div className="w-full p-2 flex flex-col justify-center items-center h-[200px] bg-gradient-to-t from-fuchsia-700/50 to-white/10 mt-10 rounded-xl mb-2">

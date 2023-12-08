@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { toast } from "react-hot-toast";
 import PropTypes from "prop-types";
 
 const cartContext = createContext();
@@ -17,6 +18,7 @@ export const CartProvider = ({ children }) => {
       total: product.product.price * qty,
     };
     setCartItems([...cartItems, newItems]);
+    toast.success("success add to cart");
   };
 
   const incrementItems = (index) => {
@@ -40,9 +42,25 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const deleteItems = (index) => {
+    const updateItems = [...cartItems];
+
+    const indexArray = updateItems.indexOf(index);
+    if (indexArray >= -1) {
+      updateItems.splice(indexArray, 1);
+      setCartItems(updateItems);
+    }
+  };
+
   return (
     <cartContext.Provider
-      value={{ cartItems, addToCart, incrementItems, decrementItems }}
+      value={{
+        cartItems,
+        addToCart,
+        incrementItems,
+        decrementItems,
+        deleteItems,
+      }}
     >
       {children}
     </cartContext.Provider>
